@@ -27,4 +27,4 @@
 </ul>
 <h2>Nota Importante</h2>
 <p>Esta atividade é estritamente educacional, com o objetivo de entender o funcionamento de ferramentas de quebra de senhas. Não deve ser utilizada para qualquer outro fim, especialmente para atividades não autorizadas ou antiéticas.</p>
-</artifact>1,4sRápidoHow can Grok help?
+</artifact>
