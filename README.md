@@ -22,7 +22,7 @@
 </ul>
 <h2>Requisitos</h2>
 <ul>
-<li>Python 3.x</li>
+<li>Python </li>
 <li>Bibliotecas: <code>zipfile</code>, outras conforme necessário (ex.: <code>argparse</code> para interface de linha de comando)</li>
 </ul>
 <h2>Nota Importante</h2>
