@@ -1,3 +1,4 @@
+
 import zipfile
 import tkinter as tk
 from tkinter import filedialog
@@ -43,7 +44,7 @@ def zip_com_senha(caminho_zip): ## Deve fazer o teste do arquivo de senhas para 
         return True # Precisa de Senha
     
     
-def teste_senha_zip(txt_path):
+def teste_senha_zip(txt_path: str , pyzipper_module):
 
     if not txt_path or not os.path.exists(txt_path):
         print("Arquivo de senhas não encontrado") 
@@ -52,12 +53,12 @@ def teste_senha_zip(txt_path):
     pasta_destino = "pasta_destino"
     os.makedirs(pasta_destino, exist_ok=True)
 
-    try:
-        with open(txt_path, 'r', encoding='utf-8') as f:
+    try: 
+        with open(txt_path, 'r') as f:
             senhas = [linha.strip() for linha in f if linha.strip()]
             print(f"Total de senhas para teste: {len(senhas)}")
 
-        with zipfile.ZipFile(caminho_zip, 'r') as zipf:
+        with pyzipper_module.AES.ZipFile(caminho_zip, 'r') as zipf:
             arquivos = zipf.namelist()
             if not arquivos:
                 print("Nenhum arquivo encontrado no ZIP.")
@@ -66,12 +67,8 @@ def teste_senha_zip(txt_path):
             for i, senha in enumerate(senhas, 1):
                 try:
                     print(f"Testando senha {i}/{len(senhas)}: {senha}")
-                    # Testa extraindo só o primeiro arquivo
-                    zipf.extract(arquivos[0], pasta_destino, pwd=senha.encode('utf-8'))
+                    
                     print(f"Senha correta encontrada: {senha}")
-                    # Se chegou aqui, a senha está correta, extrai tudo
-                    zipf.extractall(pasta_destino, pwd=senha.encode('utf-8'))
-                    return senha
                 except RuntimeError:
                     continue  # Senha errada, tenta a próxima
                 except Exception as e:
@@ -94,7 +91,4 @@ if __name__ == "__main__":
             filetypes=[("Arquivo de texto", "*.txt")]
         )
         senha_encontrada = teste_senha_zip(caminho_txt)
-        if senha_encontrada:
-            print(f"Extração concluida! Usando a senha: {senha_encontrada}")
-    else:
-        print("O arquivo ZIP não está protegido por senha.")
+       
